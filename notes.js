@@ -29,16 +29,15 @@ const saveNotes = function(notes){
     }
     
 
-
-
 const addNote = function (title, body){
     const notes = loadNotes();
     const duplicateNotes = notes.filter(function (note){
         return note.title === title
+        
     })
 
 
-    if(duplicateNotes === 0){
+    if(duplicateNotes.length === 0){
 
         notes.push({
             title: title,
@@ -50,19 +49,12 @@ const addNote = function (title, body){
     }
     else {
         console.log('Note title already exists!');
+       
 
     }
 
 
-
-
-
-
-
-    
-
 }
-
 
 
 
