@@ -1,11 +1,4 @@
 const fs = require('fs');
-const name = 'Vanja';
-
-const getNotes = function(){
-
-    return 'Your Notes';
-
-}
 
 const loadNotes = function(){
 
@@ -53,15 +46,51 @@ const addNote = function (title, body){
 
     }
 
-
 }
+
+const removeNotes = function (title){
+    const notes = loadNotes();
+    for (var i = notes.length - 1; i >= 0; --i) {
+        if (notes[i].title == title) {
+            notes.splice(i,1);
+            
+        }
+    }
+    saveNotes(notes);
+}
+
+
+const listNotes = function (title){
+    const notes = loadNotes();
+    console.log(notes);
+    
+}
+
+const readNotes = function (title){
+    let bodyNote;
+    const notes = loadNotes();
+    for (var i = notes.length - 1; i >= 0; --i) {
+        if (notes[i].title == title) {
+        
+          note
+            
+        }
+    }
+    
+   console.log(bodyNote);
+    
+}
+
+
 
 
 
 module.exports = {
 
-getNotes : getNotes,
-addNote : addNote
+addNote : addNote,
+removeNotes : removeNotes,
+readNotes : readNotes,
+listNotes: listNotes
 
 }
 
