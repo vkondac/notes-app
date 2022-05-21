@@ -1,6 +1,7 @@
+const { default: chalk } = require('chalk');
 const fs = require('fs');
 
-const loadNotes = function(){
+const loadNotes = () => {
 
 
     try {
@@ -14,7 +15,7 @@ const loadNotes = function(){
     }
 }
 
-const saveNotes = function(notes){
+const saveNotes = (notes) =>{
 
     const dataJSON = JSON.stringify(notes);
     fs.writeFileSync('notes.json',dataJSON);
@@ -22,15 +23,12 @@ const saveNotes = function(notes){
     }
     
 
-const addNote = function (title, body){
+const addNote = (title, body) => {
     const notes = loadNotes();
-    const duplicateNotes = notes.filter(function (note){
-        return note.title === title
-        
-    })
-
-
-    if(duplicateNotes.length === 0){
+    const duplicateNote = notes.find((note) => note.title === title)
+       
+    
+    if(!duplicateNote){
 
         notes.push({
             title: title,
@@ -48,42 +46,43 @@ const addNote = function (title, body){
 
 }
 
-const removeNotes = function (title){
+const removeNotes = (title) => {
     const notes = loadNotes();
     for (var i = notes.length - 1; i >= 0; --i) {
         if (notes[i].title == title) {
             notes.splice(i,1);
-            
+          
         }
     }
     saveNotes(notes);
-}
-
-
-const listNotes = function (title){
-    const notes = loadNotes();
-    console.log(notes);
     
 }
 
-const readNotes = function (title){
-    let bodyNote;
+
+const listNotes = () => {
     const notes = loadNotes();
-    for (var i = notes.length - 1; i >= 0; --i) {
-        if (notes[i].title == title) {
+    console.log(chalk.bgBlueBright('Your Notes:'))
+   notes.forEach((note) => {
+       console.log(note.title);
+   })
         
-          note
-            
-        }
-    }
-    
-   console.log(bodyNote);
-    
 }
 
+const readNotes = (title) => {
+
+    const notes = loadNotes();
+    const note = notes.find((note) => note.title === title);
+
+    if(note){
+        console.log(chalk.inverse(note.title));
+        console.log(note.body);
+    }
+    else{
+        console.log(chalk.inverse("No note under that title"))
+    }
 
 
-
+}
 
 module.exports = {
 
